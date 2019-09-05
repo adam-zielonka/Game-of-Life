@@ -1,9 +1,9 @@
 function game(board) {
-    var result = board.map(item => item.slice())
-    var n = board.length
-    for (var i = 0; i < n; i++) {
-        var m = board[i].length
-        for (var j = 0, count = 0; j < m; j++ , count = 0) {
+    const result = board.map(item => item.slice())
+    let n = board.length
+    for (let i = 0; i < n; i++) {
+        let m = board[i].length
+        for (let j = 0, count = 0; j < m; j++, count = 0) {
             if (i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1]) count++
             if (i - 1 >= 0 && board[i - 1][j]) count++
             if (i - 1 >= 0 && j + 1 < m && board[i - 1][j + 1]) count++
@@ -46,13 +46,40 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function get50() {
+    const boxes = Math.ceil(window.innerHeight / size) * Math.ceil(window.innerWidth / size)
+
+    const arr = []
+    for(let i = 0; i < boxes/2; i++ ){
+        arr.push(false)
+    }
+    for(let i = boxes/2; i < boxes; i++ ){
+        arr.push(true)
+    }
+
+    return shuffle(arr)
+}
+
 function generateBoard(size) {
+
+    const arr = get50()
+
     var board = []
     for (var i = 0; i < window.innerHeight / size; i++) {
         board[i] = []
         for (var j = 0; j < window.innerWidth / size; j++)
-            board[i][j] = getRandom(0, 2) == 1
+            board[i][j] = arr.pop() //getRandom(0, 2) == 1
     }
+
     return board
 }
 
@@ -83,8 +110,7 @@ function setColors() {
     document.body.style.backgroundColor = !colorInverse ? colorLife : colorDead
 }
 
-const canvasElem = document.getElementById('canvas');
-const ctx = canvasElem.getContext('2d');
+const ctx = document.getElementById('canvas').getContext('2d')
 var size = 15, time = 80
 var colorLife, colorDead, colorInverse
 setColors()
