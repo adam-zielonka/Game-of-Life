@@ -51,35 +51,30 @@ export function getColors() {
   return { colorLife, colorDead }
 }
 
-function checkNeighbor(board, i, j) {
-  return board[i] && board[i][j]
-}
-
 export function game(board, fill) {
-  const result = board.map(item => item.slice())
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0, count = 0; j < board[i].length; j++, count = 0) {
-      if(checkNeighbor(board, i - 1, j - 1)) count++
-      if(checkNeighbor(board, i - 1, j    )) count++
-      if(checkNeighbor(board, i - 1, j + 1)) count++
-      if(checkNeighbor(board, i    , j + 1)) count++
-      if(checkNeighbor(board, i    , j - 1)) count++
-      if(checkNeighbor(board, i + 1, j - 1)) count++
-      if(checkNeighbor(board, i + 1, j    )) count++
-      if(checkNeighbor(board, i + 1, j + 1)) count++
-      
-      if (board[i][j]) {
-        if (count < 2 || count > 3) {
-          result[i][j] = false
-          fill(i, j, false)
-        }
-      } else {
-        if (count == 3) {
-          result[i][j] = true
-          fill(i, j, true)
-        }
+  return board.map((line, i) => line.map((cell, j) => {
+    const count = [
+      [i - 1, j - 1],
+      [i - 1, j    ],
+      [i - 1, j + 1],
+      [i    , j + 1],
+      [i    , j - 1],
+      [i + 1, j - 1],
+      [i + 1, j    ],
+      [i + 1, j + 1],
+    ].reduce((c, [i,j]) => board[i] && board[i][j] ? c + 1 : c, 0)
+
+    if (cell) {
+      if (count < 2 || count > 3) {
+        fill(i, j, false)
+        return false
+      }
+    } else {
+      if (count == 3) {
+        fill(i, j, true)
+        return true
       }
     }
-  }
-  return result
+    return cell
+  }))
 }
