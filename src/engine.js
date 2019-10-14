@@ -11,9 +11,7 @@ export function getEngine({ size, colorLife, colorDead }) {
   }
 
   const fillBoard = (board) => {
-    for (var i = 0; i < board.length; i++)
-    for (var j = 0; j < board[i].length; j++)
-      fill(i, j, board[i][j])
+    board.forEach((line, i) => line.forEach((cell, j) => fill(i, j, cell)))
   }
 
   return { fill, fillBoard }
