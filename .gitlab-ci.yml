@@ -23,7 +23,7 @@ build:
   artifacts:
     expire_in: 1 week
     paths:
-      - build
+      - dist
   cache:
     paths:
     - node_modules
@@ -34,9 +34,9 @@ pages:
     GIT_STRATEGY: none
     GIT_CHECKOUT: "false"
   stage: deploy
-  dependencies: ["build"]
+  dependencies: ["dist"]
   script:
-    - mv build public
+    - mv dist public
   artifacts:
     expire_in: 1 week
     paths:
