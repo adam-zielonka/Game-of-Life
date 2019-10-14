@@ -1,5 +1,5 @@
 import {
-  generateBoard, getDimensions, getRandomSet, getColors, game,
+  createBoard, createSet, game, getDimensions, getColors, getRandomBool,
 } from './utils'
 import { getEngine } from './engine'
 
@@ -12,7 +12,7 @@ const time = 80
 const { colorLife, colorDead } = getColors()
 const { fill, fillBoard } = getEngine({ size, colorLife, colorDead })
 const { count, width, height } = getDimensions(size, window.innerWidth, window.innerHeight)
-const board = generateBoard(width, height, getRandomSet(count))
+const board = createBoard(width, height, createSet(count, getRandomBool))
 
 fillBoard(board)
 gameOfLife(time, game(board, fill), fill)

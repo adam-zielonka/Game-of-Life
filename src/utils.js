@@ -10,13 +10,11 @@ export function getDimensions(size, innerWidth, innerHeight) {
   return { count, width, height }
 }
 
-export function getRandomSet(count) {
-  const set = []
-  for (let i = 0; i < count; i++) set.push(getRandom(0, 2) === 1)
-  return set
-}
+export const getRandomBool = () => getRandom(0, 2) === 1
 
-export function generateBoard(width, height, set) {
+export const createSet = (length, map) => Array.from({ length }, map)
+
+export function createBoard(width, height, set) {
   const board = []
 
   for (let i = 0; i < height; i++) {
@@ -34,7 +32,7 @@ export function getColors() {
     ['red', 'blue'],
     ['orange', 'purple'],
   ][getRandom(0, 4)]
-  if (getRandom(0, 2) === 0) [colorLife, colorDead] = [colorDead, colorLife]
+  if (getRandomBool()) [colorLife, colorDead] = [colorDead, colorLife]
   return { colorLife, colorDead }
 }
 
