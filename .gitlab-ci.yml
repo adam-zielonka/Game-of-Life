@@ -34,7 +34,7 @@ pages:
     GIT_STRATEGY: none
     GIT_CHECKOUT: "false"
   stage: deploy
-  dependencies: ["dist"]
+  dependencies: ["build"]
   script:
     - mv dist public
   artifacts:
