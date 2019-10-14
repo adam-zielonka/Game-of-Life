@@ -32,7 +32,7 @@ export function createBoard(width, height, set) {
   return board
 }
 
-export function game(board, fill) {
+export function getNextGeneration(board) {
   return board.map((line, i) => line.map((cell, j) => {
     const count = [
       [i - 1, j - 1],
@@ -45,15 +45,8 @@ export function game(board, fill) {
       [i + 1, j + 1],
     ].reduce((c, [x, y]) => (board[x] && board[x][y] ? c + 1 : c), 0)
 
-    if (cell) {
-      if (count < 2 || count > 3) {
-        fill(i, j, false)
-        return false
-      }
-    } else if (count === 3) {
-      fill(i, j, true)
-      return true
-    }
+    if (cell && (count < 2 || count > 3)) return false
+    if (!cell && count === 3) return true
     return cell
   }))
 }
