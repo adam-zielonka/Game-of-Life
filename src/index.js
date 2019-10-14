@@ -1,7 +1,7 @@
 import {
-  createBoard, createSet, getNextGeneration, getDimensions, getColors, getRandomBool,
+  create2dArray, getNextGeneration, getDimensions, getRandomBool,
 } from './utils'
-import { getEngine } from './engine'
+import { getEngine, getColors } from './engine'
 
 function gameOfLife(board, time, fillBoard) {
   const mainLoop = (b) => {
@@ -14,9 +14,9 @@ function gameOfLife(board, time, fillBoard) {
 
 const size = 15
 const time = 80
-const { colorLife, colorDead } = getColors()
+const [colorLife, colorDead] = getColors()
 const { fillBoard } = getEngine({ size, colorLife, colorDead })
-const { count, width, height } = getDimensions(size, window.innerWidth, window.innerHeight)
-const board = createBoard(width, height, createSet(count, getRandomBool))
+const { width, height } = getDimensions(size, window.innerWidth, window.innerHeight)
+const board = create2dArray(width, height, getRandomBool)
 
 gameOfLife(getNextGeneration(board), time, fillBoard)

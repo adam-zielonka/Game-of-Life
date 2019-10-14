@@ -1,52 +1,23 @@
 export const getRandom = (min, max) => Math.floor(Math.random() * (max - min)) + min
 export const getRandomBool = () => getRandom(0, 2) === 1
-export const createSet = (length, map) => Array.from({ length }, map)
 
-export function getColors() {
-  let [colorLife, colorDead] = [
-    ['black', 'white'],
-    ['green', 'yellow'],
-    ['red', 'blue'],
-    ['orange', 'purple'],
-  ][getRandom(0, 4)]
-  if (getRandomBool()) [colorLife, colorDead] = [colorDead, colorLife]
-  return { colorLife, colorDead }
-}
+export const getDimensions = (size, innerWidth, innerHeight) => (
+  { width: Math.ceil(innerWidth / size), height: Math.ceil(innerHeight / size) }
+)
 
-export function getDimensions(size, innerWidth, innerHeight) {
-  const width = innerWidth / size
-  const height = innerHeight / size
-  const count = Math.ceil(width) * Math.ceil(height)
+export const create2dArray = (width, height, fill) => (
+  Array(height).fill(null).map((line, i) => Array(width).fill(null).map((cell, j) => fill(i, j)))
+)
 
-  return { count, width, height }
-}
+export const map2d = (arr2d, map) => arr2d.map((line, i) => line.map((cell, j) => map(cell, i, j)))
 
-export function createBoard(width, height, set) {
-  const board = []
+export const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
+  const count = [
+    [i - 1, j - 1], [i - 1, j], [i - 1, j + 1], [i, j + 1],
+    [i, j - 1], [i + 1, j - 1], [i + 1, j], [i + 1, j + 1],
+  ].reduce((c, [x, y]) => (board[x] && board[x][y] ? c + 1 : c), 0)
 
-  for (let i = 0; i < height; i++) {
-    board[i] = []
-    for (let j = 0; j < width; j++) board[i][j] = set.pop()
-  }
-
-  return board
-}
-
-export function getNextGeneration(board) {
-  return board.map((line, i) => line.map((cell, j) => {
-    const count = [
-      [i - 1, j - 1],
-      [i - 1, j],
-      [i - 1, j + 1],
-      [i, j + 1],
-      [i, j - 1],
-      [i + 1, j - 1],
-      [i + 1, j],
-      [i + 1, j + 1],
-    ].reduce((c, [x, y]) => (board[x] && board[x][y] ? c + 1 : c), 0)
-
-    if (cell && (count < 2 || count > 3)) return false
-    if (!cell && count === 3) return true
-    return cell
-  }))
-}
+  if (cell && (count < 2 || count > 3)) return false
+  if (!cell && count === 3) return true
+  return cell
+})

@@ -1,3 +1,16 @@
+import { getRandom, getRandomBool } from './utils'
+
+export function getColors() {
+  const [color1, color2] = [
+    ['black', 'white'],
+    ['green', 'yellow'],
+    ['red', 'blue'],
+    ['orange', 'purple'],
+  ][getRandom(0, 4)]
+
+  return getRandomBool() ? [color1, color2] : [color2, color1]
+}
+
 export function getEngine({ size, colorLife, colorDead }) {
   const ctx = document.getElementById('canvas').getContext('2d')
   ctx.canvas.width = window.innerWidth
