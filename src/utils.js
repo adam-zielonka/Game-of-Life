@@ -1,29 +1,6 @@
-function getRandom(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min
-}
-
-export function getDimensions(size, innerWidth, innerHeight) {
-  const width = innerWidth / size
-  const height = innerHeight / size
-  const count = Math.ceil(width) * Math.ceil(height)
-
-  return { count, width, height }
-}
-
+export const getRandom = (min, max) => Math.floor(Math.random() * (max - min)) + min
 export const getRandomBool = () => getRandom(0, 2) === 1
-
 export const createSet = (length, map) => Array.from({ length }, map)
-
-export function createBoard(width, height, set) {
-  const board = []
-
-  for (let i = 0; i < height; i++) {
-    board[i] = []
-    for (let j = 0; j < width; j++) board[i][j] = set.pop()
-  }
-
-  return board
-}
 
 export function getColors() {
   let [colorLife, colorDead] = [
@@ -34,6 +11,25 @@ export function getColors() {
   ][getRandom(0, 4)]
   if (getRandomBool()) [colorLife, colorDead] = [colorDead, colorLife]
   return { colorLife, colorDead }
+}
+
+export function getDimensions(size, innerWidth, innerHeight) {
+  const width = innerWidth / size
+  const height = innerHeight / size
+  const count = Math.ceil(width) * Math.ceil(height)
+
+  return { count, width, height }
+}
+
+export function createBoard(width, height, set) {
+  const board = []
+
+  for (let i = 0; i < height; i++) {
+    board[i] = []
+    for (let j = 0; j < width; j++) board[i][j] = set.pop()
+  }
+
+  return board
 }
 
 export function game(board, fill) {
