@@ -27,6 +27,7 @@ build:
   cache:
     paths:
     - node_modules
+    - .cache
 
 pages:
   image: alpine
