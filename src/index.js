@@ -1,22 +1,32 @@
+import { render } from 'mobx-jsx'
 import {
   create2dArray, getNextGeneration, getDimensions, getRandomBool,
 } from './utils'
 import { getEngine, getColors } from './engine'
+import Settings from './settings'
+import Panel from './settingsPanel'
 
-function gameOfLife(board, time, fillBoard) {
+let timeout
+
+const gameOfLife = (board, time, fillBoard) => {
   const mainLoop = (b) => {
     fillBoard(b)
-    setTimeout(() => mainLoop(getNextGeneration(b)), time)
+    timeout = setTimeout(() => mainLoop(getNextGeneration(b)), Settings.time)
   }
 
   mainLoop(board)
 }
 
-const size = 15
-const time = 80
-const [colorLife, colorDead] = getColors()
-const { fillBoard } = getEngine({ size, colorLife, colorDead })
-const { width, height } = getDimensions(size, window.innerWidth, window.innerHeight)
-const board = create2dArray(width, height, getRandomBool)
+const onReset = () => {
+  clearTimeout(timeout)
+  const { time, size } = Settings
+  const [colorLife, colorDead] = getColors()
+  const { fillBoard } = getEngine({ size, colorLife, colorDead })
+  const { width, height } = getDimensions(size, window.innerWidth, window.innerHeight)
+  const board = create2dArray(width, height, getRandomBool)
+  gameOfLife(getNextGeneration(board), time, fillBoard)
+}
 
-gameOfLife(getNextGeneration(board), time, fillBoard)
+onReset()
+
+render(() => <Panel onReset={onReset} />, document.getElementById('settings'))

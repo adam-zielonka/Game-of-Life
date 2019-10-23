@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    [
+      "babel-plugin-jsx-dom-expressions",
+      {
+        "moduleName": "mobx-jsx",
+        "alwaysCreateComponents": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ]
+  ]
+}
