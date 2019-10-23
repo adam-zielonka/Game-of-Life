@@ -4,7 +4,7 @@ stages:
 - deploy
 
 lint:
-  image: python3.8-nodejs12-alpine
+  image: nikolaik/python-nodejs:latest
   stage: test
   allow_failure: true
   script:
@@ -15,7 +15,7 @@ lint:
     - node_modules
 
 build:
-  image: python3.8-nodejs12-alpine
+  image: nikolaik/python-nodejs:latest
   stage: build
   script:
     - yarn
