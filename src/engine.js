@@ -18,14 +18,18 @@ export function getEngine({ size, colorLife, colorDead }) {
 
   document.body.style.backgroundColor = colorDead
 
+  let lastBoard = null
+
   const fill = (i, j, life) => {
+    if (lastBoard && lastBoard[i][j] === life) return
     ctx.fillStyle = life ? colorLife : colorDead
     ctx.fillRect(j * size, i * size, size, size)
   }
 
   const fillBoard = (board) => {
     board.forEach((line, i) => line.forEach((cell, j) => fill(i, j, cell)))
+    lastBoard = board
   }
 
-  return { fill, fillBoard }
+  return { fillBoard }
 }
