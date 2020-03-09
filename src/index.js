@@ -1,10 +1,8 @@
-import { render } from 'mobx-jsx'
 import {
   create2dArray, getNextGeneration, getDimensions, getRandomBool,
 } from './utils'
 import { getEngine, getColors } from './engine'
 import Settings from './settings'
-import Panel from './settingsPanel'
 
 let timeout
 
@@ -27,6 +25,6 @@ const onReset = () => {
   gameOfLife(getNextGeneration(board), time, fillBoard)
 }
 
-onReset()
+document.getElementById('reset').onclick = onReset
 
-render(() => <Panel onReset={onReset} />, document.getElementById('settings'))
+onReset()

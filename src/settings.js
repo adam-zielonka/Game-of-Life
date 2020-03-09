@@ -1,9 +1,12 @@
-import { observable } from 'mobx'
+const _time = document.getElementById('time')
+const _size = document.getElementById('size')
+
+_time.value = 80
+_size.value = 15
 
 class Settings {
-  @observable size = 15
-
-  @observable time = 80
+  get size() { return _size.value }
+  get time() { return _time.value }
 }
 
 const settings = new Settings()
