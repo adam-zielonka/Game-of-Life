@@ -1,11 +1,30 @@
 stages:
-- build
-- test
 - deploy
+- test
+
+pages:
+  image: node:latest
+  stage: deploy
+  script:
+    - yarn
+    - yarn build
+    - mv dist public
+  cache:
+    paths:
+    - node_modules
+    - .cache
+  artifacts:
+    expire_in: 1 week
+    paths:
+    - public
+  only:
+    - master
+  except:
+    - schedules
 
 lint:
-  image: nikolaik/python-nodejs:latest
-  stage: test
+  image: node:latest
+  stage: deploy
   allow_failure: true
   script:
     - yarn
@@ -13,41 +32,6 @@ lint:
   cache:
     paths:
     - node_modules
-  except:
-    - schedules
-
-build:
-  image: nikolaik/python-nodejs:latest
-  stage: build
-  script:
-    - yarn
-    - yarn build
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - dist
-  cache:
-    paths:
-    - node_modules
-    - .cache
-  except:
-    - schedules
-
-pages:
-  image: alpine
-  variables:
-    GIT_STRATEGY: none
-    GIT_CHECKOUT: "false"
-  stage: deploy
-  dependencies: ["build"]
-  script:
-    - mv dist public
-  artifacts:
-    expire_in: 1 week
-    paths:
-    - public
-  only:
-    - master
   except:
     - schedules
 
