@@ -1,10 +1,11 @@
 stages:
-- deploy
+- build
 - test
+- deploy
 
 pages:
   image: node:latest
-  stage: deploy
+  stage: build
   script:
     - yarn
     - yarn build
@@ -24,7 +25,7 @@ pages:
 
 lint:
   image: node:latest
-  stage: deploy
+  stage: build
   allow_failure: true
   script:
     - yarn
