@@ -2,9 +2,9 @@ import { getRandom, getRandomBool } from './utils'
 
 export function getColors() {
   const [color1, color2] = [
-    ['black', 'white'],
     ['green', 'yellow'],
-    ['red', 'blue'],
+    ['red', 'pink'],
+    ['blue', 'turquoise'],
     ['orange', 'purple'],
   ][getRandom(0, 4)]
 
