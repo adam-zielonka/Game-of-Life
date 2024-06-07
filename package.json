@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=./ --sourcemap",
-    "preview": "vite preview",
-    "lint": "eslint src"
+    "preview": "vite preview"
   },
   "dependencies": {
     "vite": "^5.2.11"
