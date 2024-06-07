@@ -13,8 +13,9 @@ export const map2d = (arr2d, map) => arr2d.map((line, i) => line.map((cell, j) =
 
 export const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
   const count = [
-    [i - 1, j - 1], [i - 1, j], [i - 1, j + 1], [i, j + 1],
-    [i, j - 1], [i + 1, j - 1], [i + 1, j], [i + 1, j + 1],
+    [i - 1, j - 1], [i, j + 1], [i + 1, j - 1],
+    [i - 1, j    ]/*[i, j  ]*/, [i + 1, j    ],
+    [i - 1, j + 1], [i, j - 1], [i + 1, j + 1],
   ].reduce((c, [x, y]) => (board[x] && board[x][y] ? c + 1 : c), 0)
 
   if (cell && (count < 2 || count > 3)) return false
