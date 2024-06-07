@@ -6,23 +6,19 @@ import Settings from './settings'
 
 let timeout
 
-function gameOfLife(initBoard, fillBoard) {
-  function mainLoop(board) {
-    fillBoard(board)
-    timeout = setTimeout(() => mainLoop(getNextGeneration(board)), Settings.time)
-  }
-
-  mainLoop(initBoard)
+function mainLoop(board, fillBoard) {
+  fillBoard(board)
+  timeout = setTimeout(() => mainLoop(getNextGeneration(board), fillBoard), Settings.time)
 }
 
-function onReset() {
+function gameOfLife() {
   clearTimeout(timeout)
   const { fillBoard } = getEngine(Settings.size)
   const { width, height } = getDimensions(Settings.size, window.innerWidth, window.innerHeight)
   const board = create2dArray(width, height, getRandomBool)
-  gameOfLife(getNextGeneration(board), fillBoard)
+  mainLoop(getNextGeneration(board), fillBoard)
 }
 
-document.getElementById('reset').onclick = onReset
+document.getElementById('reset').onclick = gameOfLife
 
-onReset()
+gameOfLife()
