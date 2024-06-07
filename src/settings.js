@@ -1,14 +1,10 @@
-const _time = document.getElementById('time')
-const _size = document.getElementById('size')
+const timeInput = document.getElementById('time')
+const sizeInput = document.getElementById('size')
 
-_time.value = 80
-_size.value = 15
+timeInput.value = 80
+sizeInput.value = 15
 
-class Settings {
-  get size() { return _size.value }
-  get time() { return _time.value }
+export default {
+  get size() { return sizeInput.value },
+  get time() { return timeInput.value },
 }
-
-const settings = new Settings()
-
-export default settings
