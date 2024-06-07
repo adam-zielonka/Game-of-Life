@@ -1,6 +1,6 @@
 import { getRandom, getRandomBool } from './utils'
 
-export function getColors() {
+function getColors() {
   const [color1, color2] = [
     ['green', 'yellow'],
     ['red', 'pink'],
@@ -11,11 +11,12 @@ export function getColors() {
   return getRandomBool() ? [color1, color2] : [color2, color1]
 }
 
-export function getEngine({ size, colorLife, colorDead }) {
+export function getEngine(size) {
   const ctx = document.getElementById('canvas').getContext('2d')
   ctx.canvas.width = window.innerWidth
   ctx.canvas.height = window.innerHeight
 
+  const [colorLife, colorDead] = getColors()
   document.body.style.backgroundColor = colorDead
 
   let lastBoard = null
