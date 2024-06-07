@@ -16,7 +16,15 @@ export const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
     [i - 1, j - 1], [i, j + 1], [i + 1, j - 1],
     [i - 1, j    ]/*[i, j  ]*/, [i + 1, j    ],
     [i - 1, j + 1], [i, j - 1], [i + 1, j + 1],
-  ].reduce((counter, [x, y]) => (board[x] && board[x][y] ? counter + 1 : counter), 0)
+  ].reduce((counter, [x, y]) => {
+    if (x < 0) x = board.length - 1
+    if (x >= board.length) x = 0
+    if (y < 0) y = board[x].length - 1
+    if (y >= board[x].length) y = 0
+
+    if (board[x][y] === false) return counter
+    return counter + 1
+  }, 0)
 
   if (cell && (liveCells < 2 || liveCells > 3)) return false
   if (!cell && liveCells === 3) return true
