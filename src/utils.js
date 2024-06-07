@@ -12,13 +12,13 @@ export const create2dArray = (width, height, fill) => (
 export const map2d = (arr2d, map) => arr2d.map((line, i) => line.map((cell, j) => map(cell, i, j)))
 
 export const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
-  const count = [
+  const liveCells = [
     [i - 1, j - 1], [i, j + 1], [i + 1, j - 1],
     [i - 1, j    ]/*[i, j  ]*/, [i + 1, j    ],
     [i - 1, j + 1], [i, j - 1], [i + 1, j + 1],
-  ].reduce((c, [x, y]) => (board[x] && board[x][y] ? c + 1 : c), 0)
+  ].reduce((counter, [x, y]) => (board[x] && board[x][y] ? counter + 1 : counter), 0)
 
-  if (cell && (count < 2 || count > 3)) return false
-  if (!cell && count === 3) return true
+  if (cell && (liveCells < 2 || liveCells > 3)) return false
+  if (!cell && liveCells === 3) return true
   return cell
 })
