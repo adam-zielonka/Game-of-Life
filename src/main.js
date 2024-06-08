@@ -16,6 +16,16 @@ function gameOfLife() {
   mainLoop()
 }
 
-document.getElementById('reset').onclick = gameOfLife
+function init() {
+  Engine.restart()
+  board = Board.generator()
+  Engine.render(board.next().value)
+}
 
-gameOfLife()
+document.getElementById('reset').onclick = gameOfLife
+document.getElementById('confirm').onclick = () => {
+  document.getElementById('warning').remove()
+  mainLoop()
+}
+
+init()

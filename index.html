@@ -23,6 +23,28 @@
       right: 0;
     }
 
+    #warning {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px;
+      background-color: #FFFC;
+      text-align: center;
+
+      display: grid;
+      place-items: center;
+    }
+
+    h1 {
+      font-size: 40pt;
+    }
+
+    h3 {
+      font-size: 15pt;
+    }
+
     input {
       font-size: 20pt;
       background-color: #FFFFFF00;
@@ -35,7 +57,7 @@
     button {
       font-size: 20pt;
       background-color: #FFFFFF00;
-      border: none;
+      border: 1px solid black;
       width: 100%;
     }
 
@@ -59,6 +81,15 @@
     <p>Time:&nbsp; <input id='time' /></p>
     <p>Size:&nbsp; <input id='size' /></p>
     <p><button id='reset'>↺</button></p>
+  </div>
+  <div id="warning">
+    <div>
+      <h1>Seizure Warning</h1>
+      <h3>This application may potentially trigger seizures for people with photosensitive epilepsy.</h3>
+      <h3>Viewer discretion is advised.</h3>
+      <h3>&nbsp;</h3>
+      <p><button id='confirm'>I understand the risks, start the simulation</button></p>
+    </div>
   </div>
   <script src="./src/main.js" type="module"></script>
 </body>
