@@ -12,7 +12,7 @@ function mainLoop() {
 function gameOfLife() {
   clearTimeout(timeout)
   Engine.restart()
-  board = Board.generator();
+  board = Board.generator()
   mainLoop()
 }
 
