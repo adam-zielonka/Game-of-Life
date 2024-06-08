@@ -1,4 +1,4 @@
-import Random from './random'
+import Random from './random.js'
 
 const COLORS_PAIRS = [
   ['green', 'yellow'],

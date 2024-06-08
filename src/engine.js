@@ -1,5 +1,5 @@
-import Colors from './colors'
-import Settings from './settings'
+import Colors from './colors.js'
+import Settings from './settings.js'
 
 const ctx = document.getElementById('canvas').getContext('2d')
 let lastBoard, colorLife, colorDead = null

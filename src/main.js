@@ -1,6 +1,6 @@
-import Board from './board'
-import Engine from './engine'
-import Settings from './settings'
+import Board from './board.js'
+import Engine from './engine.js'
+import Settings from './settings.js'
 
 let timeout, board
 

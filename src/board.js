@@ -1,6 +1,6 @@
-import Array2D from './array2d'
-import Settings from './settings'
-import Random from './random'
+import Array2D from './array2d.js'
+import Settings from './settings.js'
+import Random from './random.js'
 
 const getNextGeneration = (board) => Array2D.map(board, (cell, i, j) => {
   const aroundCells = [
