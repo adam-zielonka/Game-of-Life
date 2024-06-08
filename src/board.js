@@ -1,8 +1,8 @@
-import { create2dArray, getDimensions, map2d } from './utils'
+import Array2D from './array2d'
 import Settings from './settings'
 import Random from './random'
 
-const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
+const getNextGeneration = (board) => Array2D.map(board, (cell, i, j) => {
   const aroundCells = [
     [i - 1, j - 1], [i, j + 1], [i + 1, j - 1],
     [i - 1, j    ]/*[i, j  ]*/, [i + 1, j    ],
@@ -24,9 +24,16 @@ const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
   return cell
 })
 
+function getDimensions (size) {
+  return { 
+    width: Math.ceil(window.innerWidth / size),
+    height: Math.ceil(window.innerHeight / size),
+  }
+}
+
 function *generator() {
-  const { width, height } = getDimensions(Settings.size, window.innerWidth, window.innerHeight)
-  let board = create2dArray(width, height, Random.bool)
+  const { width, height } = getDimensions(Settings.size)
+  let board = Array2D.create(width, height, Random.bool)
 
   while (true) { 
     board = getNextGeneration(board)
