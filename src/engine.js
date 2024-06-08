@@ -1,36 +1,31 @@
-import { getRandom, getRandomBool } from './utils'
+import { getColors } from './colors'
+import Settings from './settings'
 
-function getColors() {
-  const [color1, color2] = [
-    ['green', 'yellow'],
-    ['red', 'pink'],
-    ['blue', 'turquoise'],
-    ['orange', 'purple'],
-  ][getRandom(0, 4)]
+const ctx = document.getElementById('canvas').getContext('2d')
+let lastBoard, colorLife, colorDead = null
+let size = Settings.size
 
-  return getRandomBool() ? [color1, color2] : [color2, color1]
+function renderCell(i, j, life) {
+  if (lastBoard && lastBoard[i][j] === life) return
+  ctx.fillStyle = life ? colorLife : colorDead
+  ctx.fillRect(j * size, i * size, size, size)
 }
 
-export function getEngine(size) {
-  const ctx = document.getElementById('canvas').getContext('2d')
+function render(board) {
+  board.forEach((line, i) => line.forEach((cell, j) => renderCell(i, j, cell)))
+  lastBoard = board
+}
+
+function restart() {
+  size = Settings.size
+  ;[colorLife, colorDead] = getColors()
+
   ctx.canvas.width = window.innerWidth
   ctx.canvas.height = window.innerHeight
-
-  const [colorLife, colorDead] = getColors()
   document.body.style.backgroundColor = colorDead
+}
 
-  let lastBoard = null
-
-  const fill = (i, j, life) => {
-    if (lastBoard && lastBoard[i][j] === life) return
-    ctx.fillStyle = life ? colorLife : colorDead
-    ctx.fillRect(j * size, i * size, size, size)
-  }
-
-  const fillBoard = (board) => {
-    board.forEach((line, i) => line.forEach((cell, j) => fill(i, j, cell)))
-    lastBoard = board
-  }
-
-  return { fillBoard }
+export default {
+  render,
+  restart,
 }
