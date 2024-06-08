@@ -1,6 +1,3 @@
-export const getRandom = (min, max) => Math.floor(Math.random() * (max - min)) + min
-export const getRandomBool = () => getRandom(0, 2) === 1
-
 export const getDimensions = (size, innerWidth, innerHeight) => (
   { width: Math.ceil(innerWidth / size), height: Math.ceil(innerHeight / size) }
 )

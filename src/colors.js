@@ -1,4 +1,4 @@
-import { getRandom, getRandomBool } from './utils'
+import Random from './random'
 
 const COLORS_PAIRS = [
   ['green', 'yellow'],
@@ -8,9 +8,9 @@ const COLORS_PAIRS = [
 ]
 
 function random() {
-  const [color1, color2] = COLORS_PAIRS[getRandom(0, COLORS_PAIRS.length)]
+  const [color1, color2] = COLORS_PAIRS[Random.int(COLORS_PAIRS.length)]
 
-  return getRandomBool() ? [color1, color2] : [color2, color1]
+  return Random.bool() ? [color1, color2] : [color2, color1]
 }
 
 export default {

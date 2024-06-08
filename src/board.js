@@ -1,5 +1,6 @@
-import { create2dArray, getDimensions, getRandomBool, map2d } from './utils'
+import { create2dArray, getDimensions, map2d } from './utils'
 import Settings from './settings'
+import Random from './random'
 
 const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
   const aroundCells = [
@@ -25,7 +26,7 @@ const getNextGeneration = (board) => map2d(board, (cell, i, j) => {
 
 function *generator() {
   const { width, height } = getDimensions(Settings.size, window.innerWidth, window.innerHeight)
-  let board = create2dArray(width, height, getRandomBool)
+  let board = create2dArray(width, height, Random.bool)
 
   while (true) { 
     board = getNextGeneration(board)
