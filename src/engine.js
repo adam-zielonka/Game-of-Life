@@ -17,6 +17,7 @@ function render(board) {
 }
 
 function restart() {
+  lastBoard = null
   size = Settings.size
   ;[colorLife, colorDead] = Colors.random()
 

@@ -1,22 +1,19 @@
-import {
-  create2dArray, getNextGeneration, getDimensions, getRandomBool,
-} from './utils'
+import Board from './board'
 import Engine from './engine'
 import Settings from './settings'
 
-let timeout
+let timeout, board
 
-function mainLoop(board) {
-  Engine.render(board)
-  timeout = setTimeout(() => mainLoop(getNextGeneration(board)), Settings.time)
+function mainLoop() {
+  Engine.render(board.next().value)
+  timeout = setTimeout(mainLoop, Settings.time)
 }
 
 function gameOfLife() {
   clearTimeout(timeout)
   Engine.restart()
-  const { width, height } = getDimensions(Settings.size, window.innerWidth, window.innerHeight)
-  const board = create2dArray(width, height, getRandomBool)
-  mainLoop(getNextGeneration(board))
+  board = Board.generator();
+  mainLoop()
 }
 
 document.getElementById('reset').onclick = gameOfLife
