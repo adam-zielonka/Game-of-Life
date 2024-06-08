@@ -7,8 +7,12 @@ const COLORS_PAIRS = [
   ['orange', 'purple'],
 ]
 
-export function getColors() {
+function random() {
   const [color1, color2] = COLORS_PAIRS[getRandom(0, COLORS_PAIRS.length)]
 
   return getRandomBool() ? [color1, color2] : [color2, color1]
+}
+
+export default {
+  random,
 }

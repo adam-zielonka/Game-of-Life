@@ -1,4 +1,4 @@
-import { getColors } from './colors'
+import Colors from './colors'
 import Settings from './settings'
 
 const ctx = document.getElementById('canvas').getContext('2d')
@@ -18,7 +18,7 @@ function render(board) {
 
 function restart() {
   size = Settings.size
-  ;[colorLife, colorDead] = getColors()
+  ;[colorLife, colorDead] = Colors.random()
 
   ctx.canvas.width = window.innerWidth
   ctx.canvas.height = window.innerHeight
